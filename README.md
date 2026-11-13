@@ -1,7 +1,7 @@
 # TA-IND-01 — Análisis crítico comparativo de un sistema distribuido real
 
 **Asignatura:** Sistemas Distribuidos — UTEQ
-**Estudiante:** NOMBRES APELLIDOS
+**Estudiante:** Elian Mendoza Villarroel
 
 ## Video de sustentación
 
