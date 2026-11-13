@@ -1,0 +1,52 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Idioma y codificación ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+
+% --- Fuente tipo Times New Roman ---
+\usepackage{mathptmx}
+
+% --- Página ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Figuras y tablas ---
+\usepackage{graphicx}
+\graphicspath{{figuras/}{capturas/}{anexos/}}
+\usepackage{booktabs}
+\usepackage{float}
+
+% --- Enlaces ---
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+% --- Referencias IEEE con biblatex + biber ---
+\usepackage{csquotes}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{referencias.bib}
+
+\begin{document}
+
+\input{secciones/00-caratula}
+
+% Las secciones se agregan aquí a medida que se escriben:
+% \input{secciones/01-resumen}
+% \input{secciones/02-introduccion}
+% \input{secciones/03-arquitectura}
+% \input{secciones/04-analisis}
+% \input{secciones/05-experimentacion}
+% \input{secciones/06-ejemplos-entorno}
+% \input{secciones/07-comparativo}
+% \input{secciones/08-postura-critica}
+% \input{secciones/09-conclusiones}
+% \input{secciones/10-declaracion-ia}
+
+\printbibliography[title={Referencias}]
+
+% \appendix
+% \input{secciones/11-anexos}
+
+\end{document}
