@@ -1,0 +1,43 @@
+services:
+  eureka-server:
+    build: ./eureka-server
+    image: eureka-server:1.0
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  catalogo-1:
+    build: ./servicio-catalogo
+    image: servicio-catalogo:1.0
+    container_name: catalogo-1
+    environment:
+      - SERVER_PORT=8081
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+
+  catalogo-2:
+    build: ./servicio-catalogo
+    image: servicio-catalogo:1.0
+    container_name: catalogo-2
+    environment:
+      - SERVER_PORT=8082
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    ports:
+      - "8082:8082"
+    depends_on:
+      - catalogo-1
+
+  catalogo-3:
+    build: ./servicio-catalogo
+    image: servicio-catalogo:1.0
+    container_name: catalogo-3
+    environment:
+      - SERVER_PORT=8083
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    ports:
+      - "8083:8083"
+    depends_on:
+      - catalogo-1

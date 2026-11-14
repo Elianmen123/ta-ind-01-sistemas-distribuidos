@@ -1,0 +1,17 @@
+﻿Inicio: reinicio de catalogo-2 a las 2026-11-13 22:29:53
+catalogo-2
+22:29:53  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:29:55  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:29:57  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:29:59  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:30:01  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:03  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:05  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:07  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:09  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:11  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:13  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:15  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:17  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:19  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:30:21  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083

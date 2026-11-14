@@ -1,0 +1,22 @@
+﻿Inicio: caida forzada de catalogo-2 a las 2026-11-13 22:03:09
+catalogo-2
+22:03:10  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:12  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:14  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:16  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:18  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:20  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:22  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:24  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:26  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:28  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:30  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:32  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:34  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:36  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:38  instancias registradas: 3  ->  servicio-catalogo:8081, servicio-catalogo:8082, servicio-catalogo:8083
+22:03:40  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:03:42  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:03:44  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:03:46  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
+22:03:48  instancias registradas: 2  ->  servicio-catalogo:8081, servicio-catalogo:8083
