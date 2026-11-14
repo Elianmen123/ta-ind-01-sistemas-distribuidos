@@ -1,47 +1,23 @@
-% =====================================================================
-% ANÁLISIS CON LOS CONCEPTOS DE LA UNIDAD 1. Cada afirmación necesita respaldo (\cite{...}) o tu experimento.
-% =====================================================================
 \section{Análisis con los conceptos de la Unidad 1}
 
-% ---------------------------------------------------------------------
-% Para cada transparencia di si Netflix la ofrece o no, y por qué, con un ejemplo:
-% acceso, ubicación, migración, reubicación, replicación, concurrencia y fallos.
-% Pista: el usuario no sabe desde qué servidor le llega el video (ubicación),
-% no ve que hay muchas copias de cada servicio (replicación), etc.
-% ¿Cuál NO ofrece del todo? (por ejemplo, cuando una caída sí se nota)
-% ---------------------------------------------------------------------
 \subsection{Transparencias de distribución}
 
-\textit{[Escribe aquí.]}
+Netflix ofrece casi todas las transparencias. En el acceso, da igual si entro desde mi celular o la tele: todos consumen la misma API. Cumple con la ubicación porque, gracias a Zuul y Eureka, nadie necesita saber en qué servidor de AWS está el recurso~\cite{SpringCloudNetflix}. Ofrece transparencia de migración, ya que Netflix trasladó su sistema a AWS entre 2008 y 2016 sin que los usuarios hicieran nada~\cite{Netflix_CloudMigration}, y de replicación, porque cada servicio tiene varias copias y el mismo video está en muchos servidores de Open Connect, pero yo lo uso como si fuera uno solo~\cite{Netflix_OpenConnect}. También cumple la concurrencia, porque millones la usamos a la vez sin bloquearnos.
 
-% ---------------------------------------------------------------------
-% CAP: cuando hay una partición de red, ¿Netflix prefiere seguir respondiendo (A) o
-% dar datos siempre exactos (C)? Usa tu experimento: Eureka siguió anunciando un servicio
-% muerto ~30 s (prefiere disponibilidad).
-% PACELC: cuando NO hay partición, ¿prefiere latencia baja (L) o consistencia (C)?
-% Ejemplo: "seguir viendo" o las recomendaciones pueden tardar en actualizarse.
-% Respalda con documentación o artículos.
-% ---------------------------------------------------------------------
+Lo que no ofrece del todo es la transparencia de reubicación y de fallos en el video: me ha pasado que la imagen se queda cargando un par de segundos, lo que ocurre cuando el servidor de Open Connect falla y el tráfico se redirige a otro~\cite{Netflix_OpenConnect}. El sistema se recupera, pero el fallo no fue invisible para mí.
+
 \subsection{CAP y PACELC}
 
-\textit{[Escribe aquí.]}
+El teorema CAP dice que, ante una partición de red, un sistema distribuido debe elegir entre consistencia (datos iguales en todos los nodos) y disponibilidad (siempre responder, aunque el dato esté viejo)~\cite{vanSteen_2023}. Netflix prioriza la disponibilidad. Lo comprobé en mi experimento: tras la caída de una copia, Eureka siguió respondiendo unos 30 segundos con información desactualizada.
 
-% ---------------------------------------------------------------------
-% ¿Cliente-servidor, peer-to-peer o híbrido? (la app es cliente; adentro, servicios que se llaman entre sí)
-% ¿Sincrónica o asincrónica? (peticiones HTTP/REST síncronas; eventos y datos en colas, asíncrono)
-% ¿Sockets, RPC o mensajería? (HTTP/REST entre servicios, latidos a Eureka por HTTP)
-% ---------------------------------------------------------------------
+PACELC agrega qué pasa cuando no hay partición: se elige entre latencia y consistencia. Netflix prioriza la latencia. Por ejemplo, si termino un episodio en la laptop y abro la app en el celular enseguida, en \enquote{Seguir viendo} aún me sale por la mitad. Por eso Netflix se puede clasificar como PA/EL.
+
 \subsection{Modelos de comunicación}
 
-\textit{[Escribe aquí.]}
+Netflix usa un modelo cliente-servidor: la app es el cliente y le pide todo a los servidores de Netflix. A diferencia de Spotify, que hasta 2014 usó un modelo híbrido con peer-to-peer~\cite{TechCrunch_Spotify2014}, Netflix no descarga contenido de otros usuarios. La comunicación hacia afuera es sincrónica: la app hace peticiones (REST o gRPC) y espera la respuesta~\cite{Rangarajan_PlayAPI}. Internamente también hay comunicación asincrónica, para tareas como guardar mi historial.
 
-% ---------------------------------------------------------------------
-% ¿Qué fallos soporta? (caída de una copia, de un servicio, de un servidor de Open Connect)
-% ¿Cómo los detecta? (latidos a Eureka, chequeos del ELB, monitoreo \cite{Giamattei_2024})
-% ¿Cómo se recupera? (varias copias, Hystrix, reintentos, Open Connect redirige a otro servidor)
-% Chaos Monkey / ingeniería del caos \cite{Owotogbe_2024}.
-% Incluye al menos un incidente real documentado (búscalo y cita la fuente).
-% ---------------------------------------------------------------------
 \subsection{Tolerancia a fallos}
 
-\textit{[Escribe aquí.]}
+Netflix está diseñado asumiendo que los servidores se van a caer. Esto viene de un incidente real: en 2008, una corrupción de su base de datos detuvo el envío de DVD durante tres días~\cite{Netflix_CloudMigration}.
+
+Para detectar los fallos se basan en el monitoreo~\cite{Giamattei_2024}: los servicios mandan \enquote{latidos} a Eureka y, si dejan de llegar, el servicio se da por caído~\cite{SpringCloudNetflix}. En mi experimento, Eureka tardó unos 30 segundos en detectar la caída, mientras las otras dos copias seguían respondiendo. Para recuperarse, Hystrix \enquote{abre el circuito} para que el fallo no se propague~\cite{SpringCloudNetflix}. Además, con Chaos Monkey apagan servidores al azar para comprobar que el sistema se recupera solo~\cite{Owotogbe_2024}.
