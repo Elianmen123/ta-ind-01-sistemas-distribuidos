@@ -1,0 +1,47 @@
+% =====================================================================
+% ANÁLISIS CON LOS CONCEPTOS DE LA UNIDAD 1. Cada afirmación necesita respaldo (\cite{...}) o tu experimento.
+% =====================================================================
+\section{Análisis con los conceptos de la Unidad 1}
+
+% ---------------------------------------------------------------------
+% Para cada transparencia di si Netflix la ofrece o no, y por qué, con un ejemplo:
+% acceso, ubicación, migración, reubicación, replicación, concurrencia y fallos.
+% Pista: el usuario no sabe desde qué servidor le llega el video (ubicación),
+% no ve que hay muchas copias de cada servicio (replicación), etc.
+% ¿Cuál NO ofrece del todo? (por ejemplo, cuando una caída sí se nota)
+% ---------------------------------------------------------------------
+\subsection{Transparencias de distribución}
+
+\textit{[Escribe aquí.]}
+
+% ---------------------------------------------------------------------
+% CAP: cuando hay una partición de red, ¿Netflix prefiere seguir respondiendo (A) o
+% dar datos siempre exactos (C)? Usa tu experimento: Eureka siguió anunciando un servicio
+% muerto ~30 s (prefiere disponibilidad).
+% PACELC: cuando NO hay partición, ¿prefiere latencia baja (L) o consistencia (C)?
+% Ejemplo: "seguir viendo" o las recomendaciones pueden tardar en actualizarse.
+% Respalda con documentación o artículos.
+% ---------------------------------------------------------------------
+\subsection{CAP y PACELC}
+
+\textit{[Escribe aquí.]}
+
+% ---------------------------------------------------------------------
+% ¿Cliente-servidor, peer-to-peer o híbrido? (la app es cliente; adentro, servicios que se llaman entre sí)
+% ¿Sincrónica o asincrónica? (peticiones HTTP/REST síncronas; eventos y datos en colas, asíncrono)
+% ¿Sockets, RPC o mensajería? (HTTP/REST entre servicios, latidos a Eureka por HTTP)
+% ---------------------------------------------------------------------
+\subsection{Modelos de comunicación}
+
+\textit{[Escribe aquí.]}
+
+% ---------------------------------------------------------------------
+% ¿Qué fallos soporta? (caída de una copia, de un servicio, de un servidor de Open Connect)
+% ¿Cómo los detecta? (latidos a Eureka, chequeos del ELB, monitoreo \cite{Giamattei_2024})
+% ¿Cómo se recupera? (varias copias, Hystrix, reintentos, Open Connect redirige a otro servidor)
+% Chaos Monkey / ingeniería del caos \cite{Owotogbe_2024}.
+% Incluye al menos un incidente real documentado (búscalo y cita la fuente).
+% ---------------------------------------------------------------------
+\subsection{Tolerancia a fallos}
+
+\textit{[Escribe aquí.]}
