@@ -1,11 +1,5 @@
-% =====================================================================
-% INTRODUCCIÓN. Responde con tus palabras:
-%  1. ¿Qué problema resuelve Netflix? (ver series/películas por internet a millones de personas a la vez)
-%  2. ¿Quién lo usa y a qué escala? (cuántos suscriptores, cuántos países: búscalo y cita la fuente)
-%  3. ¿Qué parte analizas? (la arquitectura de microservicios en AWS + Open Connect para el video)
-%  4. ¿Por qué lo elegiste? (lo trabajaste en las fichas de FORM-FB-01, es el caso más documentado...)
-%  5. ¿Con qué lo comparas? (Spotify) y cómo está organizado el informe.
-% =====================================================================
-\section{Introducción}
 
-\textit{[Escribe aquí la introducción.]}
+\section{Introducción}
+El presente informe analiza la arquitectura de Netflix, un sistema distribuido que permite ver películas, series y documentales a través de internet. Actualmente cuenta con más de 325 millones de suscriptores en todo el mundo~\cite{Netflix_Q4_2025}. El análisis se centra en su arquitectura de microservicios en AWS y en Open Connect, su red propia de entrega de video, que es la responsable de distribuir el contenido que los usuarios ven a través de los proveedores de servicio de internet, mediante servidores instalados dentro de esos mismos proveedores que almacenan temporalmente archivos de video e imagen codificados. Estos servidores son los únicos responsables de entregar el contenido a los dispositivos cliente de la forma más eficiente posible~\cite{Netflix_OpenConnect}.
+Elegí este sistema porque en la actividad FORM-FB-01 estudié la identificación de microservicios al descomponer un monolito, la visualización dinámica de arquitecturas de microservicios y algunas prácticas de seguridad en estos sistemas, lo que me permitió comprender que pasar de un monolito a microservicios es difícil y que monitorear es la base para detectar fallos. Además, Netflix publicó como código abierto algunas de sus piezas, como Eureka, lo que me permitió ejecutarla en mi computadora y probar su tolerancia a fallos.
+Para el análisis se aplican los conceptos de la Unidad 1: transparencias de distribución, CAP y PACELC, modelos de comunicación y tolerancia a fallos. Estos se complementan con un experimento propio en el que levanté con Docker un servidor Eureka y tres copias de un servicio, provoqué la caída de una de ellas y observé cuánto tardaba Eureka en detectarla y en registrar su recuperación. Además, se contrasta con Spotify, una plataforma de streaming de música, podcasts y audiolibros, porque los dos son servicios de streaming que envían contenido a millones de personas, pero uno transmite video y el otro audio, lo que permite comparar sus diferentes decisiones de arquitectura.
