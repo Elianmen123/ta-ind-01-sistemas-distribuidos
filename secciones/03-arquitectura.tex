@@ -1,15 +1,14 @@
-% =====================================================================
-% ARQUITECTURA DEL SISTEMA. Explica con tus palabras cada componente y cómo se comunican:
-%  - Dispositivos y Open Connect (el video sale de servidores dentro del proveedor de internet) \cite{Netflix_OpenConnect}
-%  - AWS: ELB -> API Gateway (Zuul) -> Application API (Signup, Discovery, Play)
-%  - Hystrix (cortacircuitos), microservicios con varias copias, Eureka (registro y latidos) \cite{SpringCloudNetflix}
-%  - Datos: Cassandra / EVCache
-%  - De dónde viene: Netflix migró de un monolito a microservicios (usa tus fichas \cite{Abgaz_2023} y \cite{Oumoussa_2024})
-%  - Evolución del diagrama: primero el esquema a mano (Anexo A) y luego este en draw.io. ¿Qué agregaste y por qué?
-% =====================================================================
 \section{Arquitectura del sistema}
 
-\textit{[Escribe aquí la descripción de la arquitectura.]}
+La arquitectura de Netflix se divide en dos partes. La primera corre en la nube de AWS y está compuesta por el balanceador de carga (AWS ELB), el API Gateway (Zuul), la Application API, Hystrix, los microservicios, Eureka y las bases de datos (Cassandra y EVCache). La segunda es Open Connect, la red responsable de distribuir el contenido mediante servidores instalados dentro de los propios proveedores de servicio de internet~\cite{Netflix_OpenConnect}. La Figura~\ref{fig:arquitectura} muestra esta arquitectura de forma simplificada.
+
+Netflix no siempre funcionó así: operaba como una arquitectura monolítica alojada en sus propios centros de datos físicos, etapa en la que la empresa funcionaba como un servicio de alquiler de DVD. El cambio comenzó en 2008, cuando una grave corrupción de su base de datos detuvo el envío de DVD durante tres días completos~\cite{Netflix_CloudMigration}, y fue entonces cuando decidieron abandonar los puntos únicos de fallo con escalado vertical. Pasar de un monolito a microservicios es un proceso difícil y hay muchos enfoques para descomponer, no solo uno~\cite{Abgaz_2023,Oumoussa_2024}.
+
+Cuando un usuario abre la app, su petición llega primero al balanceador de carga elástico (ELB), que funciona como un repartidor: recibe el tráfico masivo de internet y lo reparte entre los servidores de AWS para que ninguno se sature. Luego, esa petición pasa al API Gateway (Zuul), que actúa como la puerta principal del sistema, encargándose de revisar quién entra y decidir hacia dónde debe ir la solicitud. Después, la petición llega a la Application API, que se encarga de agrupar las llamadas dependiendo de lo que el usuario esté haciendo. Por ejemplo, usa la Signup API para los nuevos registros, la Discovery API para navegar por el catálogo buscando qué ver, o la Play API cuando el usuario ya eligió una película~\cite{Rangarajan_PlayAPI}.
+
+Detrás de esto, cada tarea específica es manejada por un microservicio distinto. Cada servicio tiene varias copias funcionando al mismo tiempo, de modo que si una se cae, otra toma su lugar y el sistema sigue operando. Aquí es donde entra Hystrix, que actúa como un interruptor de seguridad: si detecta que un servicio está fallando o tarda mucho en responder, corta esa conexión para que el error no contagie a los demás servicios y devuelve una respuesta por defecto. Pero como hay tantas copias prendiéndose y apagándose todo el tiempo, los servicios necesitan una forma de encontrarse. Para eso usan Eureka, un directorio donde cada servicio se registra apenas arranca y manda \enquote{latidos} constantes para avisar que sigue vivo. Si Eureka deja de recibir esos latidos, asume que el servicio se cayó y lo saca de la lista~\cite{SpringCloudNetflix}.
+
+En cuanto al almacenamiento, datos como los perfiles, configuraciones y el historial de visualización se guardan en bases de datos diseñadas para ser muy rápidas, como Cassandra y EVCache. Finalmente, ocurre algo interesante: cuando el usuario le da \enquote{play}, la Play API no envía el archivo de video desde AWS. Lo que hace es calcular cuál es el servidor de Open Connect más cercano (los equipos instalados en los proveedores de internet locales) y le entrega a la aplicación esa dirección. A partir de ahí, el video se descarga directamente desde ese servidor cercano, lo que evita que el contenido viaje por todo el mundo y cause retrasos~\cite{Netflix_OpenConnect}.
 
 \begin{figure}[H]
   \centering
@@ -18,4 +17,4 @@
   \label{fig:arquitectura}
 \end{figure}
 
-\textit{[Escribe aquí cómo evolucionó el diagrama desde el esquema a mano.]}
+Primero dibujé un esquema a mano (Anexo~A) con los dispositivos, Open Connect, el AWS ELB, el API Gateway, un bloque de microservicios, Eureka y las bases de datos. Luego, en draw.io (Figura~\ref{fig:arquitectura}), agregué la Application API con sus tres partes (Signup, Discovery y Play), Hystrix, el rectángulo que separa lo que corre en AWS de lo que está fuera, y los nombres de Zuul, Cassandra y EVCache, porque investigando más entendí cómo se conectan las piezas realmente. Vi que las solicitudes siempre atraviesan primero la Application API, que Hystrix es el salvavidas que evita los fallos en cascada, y que el streaming del video como tal no sale de AWS, sino de los servidores más cercanos de Open Connect.
