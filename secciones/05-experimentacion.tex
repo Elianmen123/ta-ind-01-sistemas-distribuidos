@@ -1,16 +1,6 @@
-% =====================================================================
-% EXPERIMENTACIÓN PROPIA.
-%  1. Justifica: Netflix no se puede ejecutar localmente; usaste Eureka, que es de Netflix OSS.
-%  2. Describe el montaje (Docker Compose, 1 Eureka + 3 copias de servicio-catalogo, puertos).
-%  3. Describe el procedimiento (docker kill, sondeo cada 2 s, docker start). Los comandos están en el repositorio.
-%  4. Presenta los resultados (tabla) y las capturas.
-%  5. INTERPRETA con los conceptos de la sección anterior: ¿por qué tardó ~30 s y no 15?
-%     ¿qué pasaba con un cliente durante esos 30 s? ¿qué dice esto de CAP? ¿por qué la
-%     recuperación fue más rápida que la detección?
-% =====================================================================
 \section{Experimentación propia}
 
-\textit{[Escribe aquí la justificación y el montaje del experimento.]}
+Como no es posible ejecutar el backend real de Netflix, decidí experimentar con Eureka, el servidor de descubrimiento de servicios que Netflix creó y liberó como código abierto, y que permite que los cientos de microservicios de la plataforma se encuentren entre sí~\cite{SpringCloudNetflix,Netflix_CloudMigration}. Para el montaje utilicé Docker Compose: levanté un contenedor con el servidor Eureka y tres copias de un servicio en los puertos 8081, 8082 y 8083 (Figuras~\ref{fig:dockerps} a~\ref{fig:curl3}).
 
 \begin{figure}[H]
   \centering
@@ -33,7 +23,7 @@
   \label{fig:curl3}
 \end{figure}
 
-\textit{[Escribe aquí el procedimiento de la caída y la recuperación.]}
+Una vez que las tres copias estaban registradas y enviando sus latidos, provoqué un fallo apagando la segunda copia con \texttt{docker kill} y, al mismo tiempo, ejecuté un script que consultaba a Eureka cada 2 segundos para ver en qué momento notaba la ausencia. Después reactivé la instancia con \texttt{docker start} para medir la recuperación. Los comandos y las salidas completas están en la carpeta \texttt{experimento} del repositorio.
 
 \begin{figure}[H]
   \centering
@@ -56,6 +46,8 @@
   \label{fig:recuperacion}
 \end{figure}
 
+Eureka tardó unos 30 segundos en sacar la copia caída de su registro (de 3 a 2 instancias), mientras las copias de los puertos 8081 y 8083 seguían respondiendo (Figuras~\ref{fig:caida} y~\ref{fig:falla8082}). En cambio, al volver a encender el contenedor, reapareció en unos 8 segundos (Figura~\ref{fig:recuperacion} y Tabla~\ref{tab:resultados}).
+
 \begin{table}[H]
   \centering
   \caption{Resultados del experimento (13 de noviembre de 2026).}
@@ -70,4 +62,6 @@
   \end{tabular}
 \end{table}
 
-\textit{[Escribe aquí la interpretación de los resultados.]}
+¿Por qué tardó 30 segundos si estaba configurado en 15? Primero, Eureka no elimina una instancia al primer latido perdido: con latidos cada 5 segundos y un plazo de 15, espera unos tres ciclos fallidos antes de darla por caída, para evitar falsos positivos por pequeños microcortes de red. Segundo, el propio código de Eureka reconoce un error por el cual el plazo real es el doble del configurado ($2 \times 15 = 30$ segundos), y aclara que solo afecta a las instancias que se apagan de forma abrupta, como ocurrió en mi experimento con \texttt{docker kill}~\cite{Eureka_Lease}. Los segundos de diferencia restantes se deben a que Eureka revisa las instancias cada 5 segundos y yo lo consultaba cada 2.
+
+Este resultado muestra lo analizado en la sección anterior: durante esos 30 segundos Eureka siguió anunciando una copia que ya no existía, es decir, prefirió la disponibilidad a la consistencia. La recuperación fue más rápida porque la copia que vuelve avisa apenas arranca, mientras que para detectar una caída Eureka tiene que esperar a que falten los latidos. Aun así, el servicio nunca dejó de estar disponible, porque las otras dos copias siguieron atendiendo.
