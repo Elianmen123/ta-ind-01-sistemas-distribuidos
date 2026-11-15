@@ -1,7 +1,9 @@
-% =====================================================================
-% CONCLUSIONES. Afirmaciones concretas que salen de TU análisis y TU experimento.
-% No repitas teoría. Ejemplo de forma: "En el experimento, Eureka tardó X en..., lo que muestra que...".
-% =====================================================================
 \section{Conclusiones}
+A partir del análisis realizado y los resultados de mi experimento con Eureka, llego a las siguientes conclusiones:
 
-\textit{[Escribe aquí.]}
+\begin{itemize}
+  \item \textbf{La tolerancia a fallos es compartida.} Mi prueba demostró que Eureka mantiene un servicio caído en su registro durante unos 30 segundos. Esto implica que el backend no soluciona todo de forma automática: la aplicación cliente también debe estar programada para detectar el error y reintentar con una instancia sana sin que el usuario lo note.
+  \item \textbf{El modelo de negocio define la posición en CAP.} En el streaming, la prioridad es la disponibilidad y la baja latencia. Netflix demuestra que es preferible mostrar una interfaz con datos de hace unos minutos, sacrificando la consistencia, antes que dejar al usuario frente a una pantalla de carga.
+  \item \textbf{El tipo de contenido condiciona la infraestructura.} Al comparar Netflix con Spotify, entendí que el enorme peso del video llevó a Netflix a desplegar servidores propios (Open Connect) dentro de los proveedores de internet locales. En cambio, Spotify, al transmitir audio, que es mucho más ligero, no necesitó una red propia de ese tipo.
+  \item \textbf{Los microservicios no son una solución universal.} Aunque esta arquitectura resuelve el problema de la escala global, su complejidad operativa es inmensa. Para sistemas de tráfico local donde la exactitud inmediata de los datos es crítica, aplicar microservicios resulta en una sobreingeniería innecesaria y costosa.
+\end{itemize}
