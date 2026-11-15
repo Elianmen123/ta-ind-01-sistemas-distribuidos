@@ -1,16 +1,9 @@
-% =====================================================================
-% EJEMPLOS DE TU ENTORNO (mínimo 2). Sistemas que USAS de verdad.
-% Para cada uno: qué observaste como usuario (una caída, un mensaje que llegó tarde,
-% un saldo que tardó en actualizarse) y con qué concepto de la unidad se relaciona.
-% Ideas: SGA de la UTEQ, tu banca móvil, WhatsApp, Netflix en tu casa.
-% Escribe solo lo que te pasó a ti: te pueden preguntar en clase.
-% =====================================================================
 \section{Ejemplos del entorno del estudiante}
 
-\subsection{\textit{[Sistema 1]}}
+\subsection{Banca móvil del Banco Pichincha}
 
-\textit{[Escribe aquí.]}
+Hace poco hice una transferencia desde la aplicación y, al regresar a la pantalla de inicio, mi saldo seguía mostrando el valor anterior por unos minutos. Este es un ejemplo de la extensión PACELC: la app prefirió responder rápido mostrándome mi saldo viejo (priorizó la latencia) antes que hacerme esperar a que el dato estuviera actualizado. A diferencia del \enquote{Seguir viendo} de Netflix, en un banco esto es más delicado, por lo que la transferencia en sí debe ser consistente aunque la pantalla tarde un poco en reflejarla.
 
-\subsection{\textit{[Sistema 2]}}
+\subsection{WhatsApp}
 
-\textit{[Escribe aquí.]}
+He experimentado una caída fuerte de WhatsApp en la que la aplicación dejó de funcionar durante horas y no podía enviar ni recibir mensajes. Esto evidencia una falla en su transparencia de fallos, ya que no hubo forma de esconder el problema al usuario final. Una de las caídas más conocidas fue la del 4 de octubre de 2021, que duró unas seis horas y se debió a un comando de mantenimiento que desconectó por error la red que une todos sus centros de datos~\cite{Meta_Outage2021}. En casos así, a diferencia de mi experimento, tener muchas copias de los servicios no sirve de nada, porque lo que falla es la conexión entre ellas.
