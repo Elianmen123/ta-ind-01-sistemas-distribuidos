@@ -1,28 +1,28 @@
-% =====================================================================
-% ANÁLISIS COMPARATIVO: Netflix vs. Spotify. Mínimo 5 criterios de la Unidad 1.
-% Llena las celdas con frases cortas. Cada dato de Spotify necesita fuente (búscala y agrégala al .bib).
-% Después de la tabla, discute las diferencias más importantes.
-% =====================================================================
 \section{Análisis comparativo}
 
-\textit{[Escribe aquí una introducción breve: por qué Spotify resuelve un problema parecido.]}
+Spotify resuelve un problema parecido al de Netflix, enviar contenido por internet a millones de personas, pero con audio en lugar de video. La Tabla~\ref{tab:comparativo} compara ambos sistemas con los criterios de la Unidad~1.
 
 \begin{table}[H]
   \centering
   \caption{Comparación entre Netflix y Spotify según los criterios de la Unidad 1.}
   \label{tab:comparativo}
-  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+  \small
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
     \toprule
     Criterio & Netflix & Spotify \\
     \midrule
-    Arquitectura general & \textit{[...]} & \textit{[...]} \\
-    Transparencias de distribución & \textit{[...]} & \textit{[...]} \\
-    CAP / PACELC & \textit{[...]} & \textit{[...]} \\
-    Modelo de comunicación & \textit{[...]} & \textit{[...]} \\
-    Tolerancia a fallos & \textit{[...]} & \textit{[...]} \\
-    Distribución del contenido & \textit{[...]} & \textit{[...]} \\
+    Arquitectura general & Microservicios en AWS (plano de control)~\cite{Netflix_CloudMigration} & Microservicios que migraron a Google Cloud (GCP)~\cite{GoogleCloud_Spotify2016} \\
+    Transparencias & Acceso, ubicación, migración, replicación, concurrencia y fallos (parcial) & No detallado, aunque asume acceso y ubicación por el uso de la nube \\
+    CAP / PACELC & Disponibilidad sobre consistencia (AP/EL), comprobado en mi experimento & No documentado en mis fuentes \\
+    Modelo de comunicación & Cliente-servidor y asíncrono~\cite{Rangarajan_PlayAPI} & Cliente-servidor (históricamente híbrido con P2P) y asíncrono con Cloud Pub/Sub~\cite{TechCrunch_Spotify2014,GoogleCloud_Spotify2016} \\
+    Tolerancia a fallos & Ingeniería del caos (Chaos Monkey) y circuit breaker (Hystrix)~\cite{Owotogbe_2024,SpringCloudNetflix} & No documentado en mis fuentes \\
+    Distribución del contenido & Open Connect, red propia instalada en los ISP locales~\cite{Netflix_OpenConnect} & Nube de terceros (red P2P hasta 2014)~\cite{TechCrunch_Spotify2014,GoogleCloud_Spotify2016} \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-\textit{[Escribe aquí la discusión de la tabla.]}
+Al analizar ambas plataformas, veo que se parecen mucho en su base: para soportar a millones de usuarios, las dos dejaron sus infraestructuras antiguas y pasaron a usar microservicios en la nube (Netflix en AWS y Spotify en Google Cloud~\cite{GoogleCloud_Spotify2016}).
+
+La diferencia principal está en cómo entregan el contenido, y todo se resume al peso de los archivos. El video de Netflix es tan pesado que los obligó a instalar servidores físicos propios (Open Connect) dentro de las operadoras de internet locales. Spotify no necesitó hacer esto porque el audio es muchísimo más ligero.
+
+De Spotify me llamó mucho la atención que, en sus inicios, usaron una red P2P donde las computadoras de los usuarios se compartían la música para ahorrar ancho de banda. En 2014 apagaron este sistema~\cite{TechCrunch_Spotify2014}; fue un salvavidas técnico ingenioso que abandonaron en cuanto tuvieron suficientes servidores propios. No pude comparar su posición en CAP ni su tolerancia a fallos, porque las fuentes que consulté no lo documentan.
