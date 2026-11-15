@@ -3,7 +3,7 @@
 % --- Idioma y codificación ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[spanish,es-noshorthands]{babel}
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
 
 % --- Fuente tipo Times New Roman ---
 \usepackage{mathptmx}
@@ -17,6 +17,8 @@
 \usepackage{graphicx}
 \graphicspath{{figuras/}{capturas/}{anexos/}}
 \usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
 \usepackage{float}
 
 % --- Enlaces ---
@@ -32,21 +34,24 @@
 
 \input{secciones/00-caratula}
 
-% Las secciones se agregan aquí a medida que se escriben:
-% \input{secciones/01-resumen}
-% \input{secciones/02-introduccion}
-% \input{secciones/03-arquitectura}
-% \input{secciones/04-analisis}
-% \input{secciones/05-experimentacion}
-% \input{secciones/06-ejemplos-entorno}
-% \input{secciones/07-comparativo}
-% \input{secciones/08-postura-critica}
-% \input{secciones/09-conclusiones}
-% \input{secciones/10-declaracion-ia}
+\input{secciones/01-resumen}
+
+\tableofcontents
+\newpage
+
+\input{secciones/02-introduccion}
+\input{secciones/03-arquitectura}
+\input{secciones/04-analisis}
+\input{secciones/05-experimentacion}
+\input{secciones/06-ejemplos-entorno}
+\input{secciones/07-comparativo}
+\input{secciones/08-postura-critica}
+\input{secciones/09-conclusiones}
+\input{secciones/10-declaracion-ia}
 
 \printbibliography[title={Referencias}]
 
-% \appendix
-% \input{secciones/11-anexos}
+\appendix
+\input{secciones/11-anexos}
 
 \end{document}
