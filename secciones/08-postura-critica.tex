@@ -1,11 +1,9 @@
-% =====================================================================
-% POSTURA CRÍTICA. Tu opinión argumentada, con respaldo.
-%  - Fortalezas del diseño (por qué funciona para Netflix)
-%  - Limitaciones (complejidad, costo, dificultad para descomponer \cite{Abgaz_2023},
-%    seguridad \cite{RezaeiNasab_2023}, monitorear tantos servicios \cite{Giamattei_2024})
-%  - Compromisos (trade-offs): disponibilidad vs. consistencia (tu experimento)
-%  - ¿En qué contextos NO sería la mejor opción? (por ejemplo, un sistema pequeño como el SGA, o un banco)
-% =====================================================================
 \section{Postura crítica}
 
-\textit{[Escribe aquí.]}
+Para mí, la mayor fortaleza de Netflix es lo resistente que es: un fallo interno no le arruina la película al usuario. Lo vi en mi experimento: cuando apagué \texttt{catalogo-2}, las otras dos copias siguieron trabajando con normalidad. Además, separar el video en Open Connect libera a AWS de ese tráfico tan pesado~\cite{Netflix_OpenConnect}.
+
+Pero este diseño tiene costos. Pasar de un monolito a microservicios es muy difícil~\cite{Abgaz_2023}. Con cientos de servicios, la seguridad se complica: aunque Netflix usa un API Gateway, la práctica más aceptada según el 95,95~\% de los encuestados~\cite{RezaeiNasab_2023}, cada servicio nuevo es otra puerta que proteger. Y rastrear un error entre tantos servicios exige herramientas avanzadas de monitoreo~\cite{Giamattei_2024,Gortney_2022}.
+
+El mayor compromiso es elegir la disponibilidad sobre la consistencia: en mi experimento, Eureka siguió respondiendo 30 segundos con el dato de un nodo ya apagado. Para Netflix es aceptable, pero en un banco, como en mi ejemplo del Banco Pichincha, sería un problema serio.
+
+Por eso, esta arquitectura no sería la mejor opción para el sistema de pedidos y facturación de un restaurante local, porque el inmenso costo de mantener servidores en la nube y configurar microservicios no se justifica para un volumen de tráfico tan bajo (unos pocos meseros y la cocina). Sería caer en una sobreingeniería. Además, en un restaurante se necesita consistencia inmediata: si un mesero anota una orden o un cambio, la cocina debe verlo exactamente igual al instante. Un retraso por \enquote{consistencia eventual} arruinaría los platos o la facturación, por lo que un sistema monolítico tradicional resolvería el problema de forma mucho más barata.
