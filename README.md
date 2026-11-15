@@ -5,7 +5,7 @@
 
 ## Video de sustentación
 
-Enlace: _pendiente_
+Enlace: [https://youtu.be/VRNXkFAw8Ew](https://youtu.be/VRNXkFAw8Ew) (YouTube, no listado)
 
 ## Estructura del repositorio
 
@@ -17,7 +17,7 @@ Enlace: _pendiente_
 | `figuras/`          | Diagrama de arquitectura y otras figuras         |
 | `capturas/`         | Capturas de la ejecución del sistema             |
 | `anexos/`           | Anexo A (esquema a mano) y Anexo B (lecturas)    |
-| `experimento/`      | Comandos y resultados del experimento            |
+| `experimento/`      | Código (Eureka y servicio), `docker-compose.yml`, comandos y resultados del experimento |
 | `BITACORA.md`       | Bitácora de trabajo por sesión                   |
 | `main.pdf`          | Informe compilado                                |
 
