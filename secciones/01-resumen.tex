@@ -1,12 +1,5 @@
-% =====================================================================
-% RESUMEN (150 a 200 palabras). Escríbelo AL FINAL, cuando todo lo demás esté listo.
-% Debe decir: qué sistema analizas (arquitectura de microservicios de Netflix),
-% con qué enfoque (conceptos de la Unidad 1 + experimento con Eureka + comparación con Spotify)
-% y tus conclusiones principales (con el dato de tu experimento).
-% =====================================================================
 \section*{Resumen}
 \addcontentsline{toc}{section}{Resumen}
-
-\textit{[Escribe aquí el resumen, 150 a 200 palabras.]}
+En este informe analizo la arquitectura distribuida de Netflix, centrándome específicamente en su backend de microservicios en AWS y en Open Connect, su red propia para la entrega de video. Para evaluarlo, apliqué los conceptos de la Unidad 1 (transparencias, teorema CAP/PACELC, modelos de comunicación y tolerancia a fallos) y contrasté estas decisiones de diseño con la arquitectura de Spotify. Además, complementé la teoría con un experimento práctico usando Docker Compose, donde desplegué el servidor Eureka con tres copias de un servicio. Al provocar un fallo, comprobé cómo el sistema prioriza la disponibilidad: Eureka retuvo el nodo caído durante unos 30 segundos en su registro antes de eliminarlo, mientras que procesar su recuperación tomó solo unos 8 segundos. A partir de esto, concluyo que la resiliencia en estas arquitecturas es una tarea compartida con el cliente. Si bien los microservicios son la clave para sostener el tráfico global de Netflix, su complejidad y su consistencia eventual representan una sobreingeniería innecesaria para sistemas locales que exigen datos exactos al instante.
 
 \newpage
